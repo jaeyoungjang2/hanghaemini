@@ -1,7 +1,9 @@
 package com.sparta.hanghaemini.controller;
 
+import com.sparta.hanghaemini.dto.IdCheckDto;
 import com.sparta.hanghaemini.dto.JudgeSuccessDto;
 import com.sparta.hanghaemini.dto.SignupRequestDto;
+import com.sparta.hanghaemini.repository.UserRepository;
 import com.sparta.hanghaemini.security.UserDetailsImpl;
 import com.sparta.hanghaemini.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +21,7 @@ import java.util.stream.Collectors;
 public class UserController {
 
     private final UserService userService;
+    private final UserRepository userRepository;
 
 //    // 로그인 페이지 요청
 //    @GetMapping("/user/login")
@@ -35,17 +38,17 @@ public class UserController {
 //    }
 
     // 회원 로그인 페이지
-    @GetMapping("/user/loginView")
-    public String login2() {
-        return "login";
-    }
+//    @GetMapping("/user/loginView")
+//    public String login2() {
+//        return "login";
+//    }
 
     // 로그아웃 시 메인페이지로 리다이렉트
-    @GetMapping("/user/logout")
-    public String logout() {
-        System.out.println("로그 아웃");
-        return "redirect:/";
-    }
+//    @GetMapping("/user/logout")
+//    public String logout() {
+//        System.out.println("로그 아웃");
+//        return "redirect:/";
+//    }
 
     // 회원가입 등록
 //    @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -63,9 +66,25 @@ public class UserController {
     }
 
     // 로그인 실패시 동작
-    @GetMapping("/login")
-    public String loginError(@AuthenticationPrincipal UserDetailsImpl userDetails) {
-        System.out.println("testtest");
-        return "login";
+//    @GetMapping("/login")
+//    public String loginError(@AuthenticationPrincipal UserDetailsImpl userDetails) {
+//        System.out.println("testtest");
+//        return "login";
+//    }
+
+    // 회원 로그인 여부 확인
+    @GetMapping("/api/isLogin")
+    @ResponseBody
+    public String isLogin(@AuthenticationPrincipal UserDetailsImpl userDetails) {
+        System.out.println(userDetails.getUser().getNickname());
+        return userDetails.getUser().getNickname();
+    }
+
+    @PostMapping("/api/idCheck")
+    public JudgeSuccessDto idCheck(@RequestBody IdCheckDto idCheckDto) {
+        if (userRepository.findByNickName(idCheckDto.getNickname()).isEmpty()) {
+            return new JudgeSuccessDto(false, "이미 존재하는 id입니다.");
+        }
+        return new JudgeSuccessDto(true, "사용할 수 있는 id입니다.");
     }
 }
