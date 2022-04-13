@@ -17,7 +17,6 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor
-@Table(name = "teams")
 public class Team {
 
     @Id
@@ -25,7 +24,7 @@ public class Team {
     @Column(name = "team_id")
     private Long id;
 
-    @OneToMany
+    @OneToMany(mappedBy = "team")
     private List<User> users = new ArrayList<>();
 
     // 스터디 참여 정원 수

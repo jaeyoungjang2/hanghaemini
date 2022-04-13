@@ -21,8 +21,6 @@ public abstract class Timestamped { // abstract -> 직접 new로 못쓰고 다�
 
     @CreatedDate // 생성시간
     @JsonFormat(pattern = "yyyy-MM-dd")
-    @JsonSerialize(using = LocalDateTimeSerializer.class)
-    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime createdAt;
 
 }

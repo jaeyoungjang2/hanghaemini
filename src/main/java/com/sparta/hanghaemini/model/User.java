@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import com.sparta.hanghaemini.dto.SignupRequestDto;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,6 +29,10 @@ public class User {
     private String nickname;
 
     private String password;
+
+    @ManyToOne
+    @JoinColumn(name = "team_id")
+    private Team team;
 
     public User(String username, String nickname, String password) {
         this.username = username;
