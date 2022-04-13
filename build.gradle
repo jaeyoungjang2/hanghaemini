@@ -14,11 +14,31 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	// 스프링 시큐리티
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	// Test를 위한 Thymeleaf (뷰 템플릿 엔진)
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	/****
+	 Spring boot 2.3 version 이상부터는 spring-boot-starter-web 의존성 내부에 있던
+	 validation이 사라졌기 때문에, 의존성을 따로 추가해줘야한다.
+	 <Gradle Code>
+	 implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '2.5.6'
+	 ****/
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '2.5.6'
+
+	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'com.h2database:h2'
 	runtimeOnly 'mysql:mysql-connector-java'
+	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	// JWT
+	implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
+	implementation 'commons-codec:commons-codec:1.5'
+	implementation 'io.jsonwebtoken:jjwt-impl:0.11.2'
+	implementation 'io.jsonwebtoken:jjwt-jackson:0.11.2'
+	implementation 'com.auth0:java-jwt:3.13.0'
 }
 
 tasks.named('test') {
