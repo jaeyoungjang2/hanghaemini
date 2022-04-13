@@ -1,5 +1,9 @@
 package com.sparta.hanghaemini.security.filter;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sparta.hanghaemini.controller.UserController;
+import com.sparta.hanghaemini.dto.JudgeSuccessDto;
+import com.sparta.hanghaemini.model.HelloData;
 import com.sparta.hanghaemini.security.jwt.HeaderTokenExtractor;
 import com.sparta.hanghaemini.security.jwt.JwtPreProcessingToken;
 import java.io.IOException;
@@ -40,7 +44,16 @@ public class JwtAuthFilter extends AbstractAuthenticationProcessingFilter {
         // JWT 값을 담아주는 변수 TokenPayload
         String tokenPayload = request.getHeader("Authorization");
         if (tokenPayload == null) {
-            response.sendRedirect("/user/loginView");
+//            response.sendRedirect("/user/loginView");
+            ObjectMapper mapper = new ObjectMapper();
+
+            response.setContentType("application/json");
+            response.setCharacterEncoding("utf-8"); // HelloData 객체
+            JudgeSuccessDto loginInfo = new JudgeSuccessDto(false,"로그인 정보가 없습니다.");
+
+            String result = mapper.writeValueAsString(loginInfo);
+            response.getWriter().write(result);
+
             return null;
         }
 

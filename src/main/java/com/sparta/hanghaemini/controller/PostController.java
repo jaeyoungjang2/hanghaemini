@@ -6,10 +6,15 @@ import com.sparta.hanghaemini.dto.PostCommentDto;
 import com.sparta.hanghaemini.dto.PostRequestDto;
 import com.sparta.hanghaemini.dto.PostResponseDto;
 import com.sparta.hanghaemini.model.Category;
+import com.sparta.hanghaemini.model.Post;
 import com.sparta.hanghaemini.security.UserDetailsImpl;
 
 import com.sparta.hanghaemini.service.PostService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -55,5 +60,36 @@ public class PostController {
     @DeleteMapping("/api/posts/{postId}")
     public JudgeSuccessDto deletePost(@PathVariable Long postId) {
         return postService.deletePost(postId);
+    }
+
+    @GetMapping("/api/posts/pageable")
+    public Page<Post> pageablePost(
+        @RequestParam int page,
+        @RequestParam int size,
+        @RequestParam String sortBy,
+        @RequestParam boolean isAsc,
+        @AuthenticationPrincipal UserDetailsImpl userDetails
+    ) {
+        System.out.println("HIHIHI");
+        page --;
+        return postService.getPageablePost(page, size, sortBy, isAsc);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    @GetMapping("/api/test")
+    public void test() {
+        System.out.println("HI");
+//        System.out.println(a);
+        System.out.println("HI");
     }
 }

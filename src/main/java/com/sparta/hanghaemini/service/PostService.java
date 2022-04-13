@@ -5,6 +5,10 @@ import com.sparta.hanghaemini.model.*;
 import com.sparta.hanghaemini.repository.*;
 import com.sparta.hanghaemini.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -191,5 +195,17 @@ public class PostService {
         String message = "게시글 삭제 완료";
 
         return new JudgeSuccessDto(ok, message);
+    }
+
+    public Page<Post> getPageablePost(int page, int size, String sortBy, boolean isAsc) {
+        Sort.Direction direction = isAsc ? Sort.Direction.ASC : Sort.Direction.DESC;
+        Sort sort = Sort.by(direction, "id");
+        page--;
+        System.out.println(page);
+        System.out.println(size);
+        System.out.println(sort);
+        Pageable pageable = PageRequest.of(page, size, sort);
+        Page<Post> posts = postRepository.findAll(pageable);
+        return posts;
     }
 }
