@@ -1,0 +1,14 @@
+package com.sparta.hanghaemini;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+
+@SpringBootApplication
+@EnableJpaAuditing
+public class HanghaeminiApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(HanghaeminiApplication.class, args);
+	}
+}
