@@ -36,6 +36,7 @@ public class CommentService {
 
 
         User user = userDetails.getUser();
+
         // save 없이 이것만으로 저장됨
         Comment comment = new Comment(commentDto.getContent(), post, user);
         commentRepository.save(comment);
