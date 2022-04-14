@@ -70,7 +70,6 @@ public class PostController {
         @RequestParam boolean isAsc,
         @AuthenticationPrincipal UserDetailsImpl userDetails
     ) {
-        System.out.println("HIHIHI");
         page --;
         return postService.getPageablePost(page, size, sortBy, isAsc);
     }

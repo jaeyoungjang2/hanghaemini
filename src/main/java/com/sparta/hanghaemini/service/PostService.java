@@ -6,6 +6,7 @@ import com.sparta.hanghaemini.repository.*;
 import com.sparta.hanghaemini.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -200,12 +201,14 @@ public class PostService {
     public Page<Post> getPageablePost(int page, int size, String sortBy, boolean isAsc) {
         Sort.Direction direction = isAsc ? Sort.Direction.ASC : Sort.Direction.DESC;
         Sort sort = Sort.by(direction, "id");
-        page--;
+        System.out.println("page = " + page);
         System.out.println(page);
         System.out.println(size);
         System.out.println(sort);
         Pageable pageable = PageRequest.of(page, size, sort);
-        Page<Post> posts = postRepository.findAll(pageable);
-        return posts;
+//        Page<Post> posts = postRepository.findAll(pageable);
+        List<Post> posts = postRepository.findAll();
+        Page<Post> posts1 = new PageImpl<>(posts.subList(0, 2), pageable, posts.size());
+        return posts1;
     }
 }

@@ -79,10 +79,7 @@ public class UserController {
     @GetMapping("/api/isLogin")
     @ResponseBody
     public static IsLoginedResponseDto isLogin(@AuthenticationPrincipal UserDetailsImpl userDetails) {
-        if (userDetails == null) {
-            return new IsLoginedResponseDto(true, userDetails.getUser().getNickname());
-        }
-        return new IsLoginedResponseDto(false);
+        return new IsLoginedResponseDto(true, userDetails.getUser().getNickname());
     }
 
     @PostMapping("/api/idCheck")

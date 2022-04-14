@@ -5,11 +5,11 @@ import lombok.Getter;
 @Getter
 public class IsLoginedResponseDto {
     private boolean ok;
-    private String username;
+    private String nickname;
 
-    public IsLoginedResponseDto(boolean ok, String username) {
+    public IsLoginedResponseDto(boolean ok, String nickname) {
         this.ok = ok;
-        this.username = username;
+        this.nickname = nickname;
     }
 
     public IsLoginedResponseDto(boolean ok) {
