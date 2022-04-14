@@ -50,21 +50,13 @@ public class Post extends Timestamped {
     private LocalDateTime createdAt;
 
     public Post(String title, String content, User user, Team team, LocalDateTime createdAt, Category category) {
-        System.out.println("here");
         this.title = title;
-        System.out.println("here2");
         this.content = content;
-        System.out.println("here3");
         this.user = user;
-        System.out.println("here4");
         this.team = team;
-        System.out.println("here5");
         this.category = category;
-        System.out.println("here6");
         this.createdAt = createdAt;
-        System.out.println("here7");
         this.category.getPosts().add(this);
-        System.out.println("here8");
     }
 
     public void update(PostRequestDto postDto, Team team, Category category) {
