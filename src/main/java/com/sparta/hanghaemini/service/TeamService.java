@@ -57,23 +57,12 @@ public class TeamService {
         Long curTeamCnt = foundteam.getCurTeamCnt();
 
         if(maxTeamCnt > curTeamCnt) {
-<<<<<<< HEAD
             ++curTeamCnt;
             foundteam.changeCur(curTeamCnt);
             // 그룹의 참가 유저 List에 로그인한 유저를 추가해준다.
             foundteam.getUsers().add(loginedUser);
             teamRepository.save(foundteam);
-=======
-//            ++curTeamCnt;
 
-
-
-//            TeamDto teamDto = new TeamDto(maxTeamCnt, curTeamCnt);
-//            Team team = new Team(teamDto);
-            // 그룹의 참가 유저 List에 로그인한 유저를 추가해준다.
-//            team.getUsers().add(loginedUser);
-//            teamRepository.save(team);
->>>>>>> d17b27a (comment 작성자 확인 로직 추가 is_writer)
         } else {
             message = ILLEGAL_EXCEEDED_ALLOWED_MAXCOUNT;
             return new JudgeSuccessDto(false, message);
