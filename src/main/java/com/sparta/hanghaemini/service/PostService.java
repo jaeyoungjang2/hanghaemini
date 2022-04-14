@@ -24,7 +24,7 @@ public class PostService {
     private final TeamRepository teamRepository;
     private final CategoryRepository categoryRepository;
     private final CommentRepository commentRepository;
-//    private final UserRepository userRepository;
+    private final UserRepository userRepository;
 
     // 게시글 작성
     @Transactional
@@ -46,7 +46,7 @@ public class PostService {
 
             return new JudgeSuccessDto(ok, message);
         }
-
+        // 작성자
         User user = userDetails.getUser();
 
         // 카테고리 저장
@@ -60,6 +60,10 @@ public class PostService {
         // 게시글 저장
         Post post = new Post(title, content, user, team, createdAt, category);
         postRepository.save(post);
+
+        // user의 team 지정
+        User postOwner = userRepository.findById(user.getId()).get();
+        postOwner.changeTeam(team);
 
         boolean ok = true;
         String message = "게시글 저장 완료";

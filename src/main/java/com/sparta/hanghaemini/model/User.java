@@ -43,4 +43,12 @@ public class User {
     public User(String nickname) {
         this.nickname = nickname;
     }
+
+    public void changeTeam(Team foundteam) {
+        this.team = foundteam;
+    }
+
+    public void removeTeam(Team foundteam) {
+        this.team = null;
+    }
 }

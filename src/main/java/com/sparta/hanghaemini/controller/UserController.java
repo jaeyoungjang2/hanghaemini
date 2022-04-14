@@ -4,12 +4,12 @@ import com.sparta.hanghaemini.dto.IdCheckDto;
 import com.sparta.hanghaemini.dto.IsLoginedResponseDto;
 import com.sparta.hanghaemini.dto.JudgeSuccessDto;
 import com.sparta.hanghaemini.dto.SignupRequestDto;
+import com.sparta.hanghaemini.dto.UserRequestDto;
 import com.sparta.hanghaemini.repository.UserRepository;
 import com.sparta.hanghaemini.security.UserDetailsImpl;
 import com.sparta.hanghaemini.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -17,44 +17,15 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 public class UserController {
 
     private final UserService userService;
     private final UserRepository userRepository;
 
-//    // 로그인 페이지 요청
-//    @GetMapping("/user/login")
-//    public String login() {
-//        System.out.println("로그인 페이지 요청");
-//        return "login";
-//    }
-//
-//    // 회원가입 페이지 요청
-//    @GetMapping("/user/signup")
-//    public String signup() {
-//        System.out.println("회원가입 페이지 요청");
-//        return "signup";
-//    }
-
-    // 회원 로그인 페이지
-//    @GetMapping("/user/loginView")
-//    public String login2() {
-//        return "login";
-//    }
-
-    // 로그아웃 시 메인페이지로 리다이렉트
-//    @GetMapping("/user/logout")
-//    public String logout() {
-//        System.out.println("로그 아웃");
-//        return "redirect:/";
-//    }
-
     // 회원가입 등록
-//    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping("/user/signup")
-    @ResponseBody
     public JudgeSuccessDto join(
         @Validated @RequestBody SignupRequestDto requestDto,
         BindingResult bindingResult) {
@@ -68,16 +39,9 @@ public class UserController {
         return userService.save(requestDto);
     }
 
-    // 로그인 실패시 동작
-//    @GetMapping("/login")
-//    public String loginError(@AuthenticationPrincipal UserDetailsImpl userDetails) {
-//        System.out.println("testtest");
-//        return "login";
-//    }
 
     // 회원 로그인 여부 확인
     @GetMapping("/api/isLogin")
-    @ResponseBody
     public static IsLoginedResponseDto isLogin(@AuthenticationPrincipal UserDetailsImpl userDetails) {
         return new IsLoginedResponseDto(true, userDetails.getUser().getNickname());
     }
