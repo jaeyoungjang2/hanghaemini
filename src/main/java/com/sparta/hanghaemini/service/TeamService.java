@@ -53,11 +53,10 @@ public class TeamService {
 
         if(maxTeamCnt > curTeamCnt) {
             ++curTeamCnt;
-            TeamDto teamDto = new TeamDto(maxTeamCnt, curTeamCnt);
-            Team team = new Team(teamDto);
+            foundteam.changeCur(curTeamCnt);
             // 그룹의 참가 유저 List에 로그인한 유저를 추가해준다.
-            team.getUsers().add(loginedUser);
-            teamRepository.save(team);
+            foundteam.getUsers().add(loginedUser);
+            teamRepository.save(foundteam);
         } else {
             message = ILLEGAL_EXCEEDED_ALLOWED_MAXCOUNT;
             return new JudgeSuccessDto(false, message);
@@ -90,11 +89,10 @@ public class TeamService {
             return new JudgeSuccessDto(false, message);
         } else {
             --curTeamCnt;
-            TeamDto teamDto = new TeamDto(maxTeamCnt, curTeamCnt);
-            Team team = new Team(teamDto);
+            foundteam.changeCur(curTeamCnt);
             // 그룹의 참가 유저 List에 로그인한 유저를 삭제해준다.
-            team.getUsers().remove(loginedUser);
-            teamRepository.save(team);
+            foundteam.getUsers().remove(loginedUser);
+            teamRepository.save(foundteam);
         }
         return new JudgeSuccessDto(true, "취소 완료");
     }
