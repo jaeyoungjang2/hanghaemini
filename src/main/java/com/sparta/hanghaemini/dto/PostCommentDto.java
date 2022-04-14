@@ -14,6 +14,7 @@ import java.util.List;
 @Getter
 public class PostCommentDto {
     private Long id;
+    private boolean writer;
     private String title;
     private String content;
     private String nickname;
@@ -24,7 +25,7 @@ public class PostCommentDto {
     private LocalDateTime createdAt;
     private List<CommentResponseDto> comment;
 
-    public PostCommentDto(Post post, TeamDto team, CategoryDto category, List<CommentResponseDto> comment) {
+    public PostCommentDto(Post post, TeamDto team, CategoryDto category, List<CommentResponseDto> comment, boolean equals) {
         this.id = post.getId();
         this.title = post.getTitle();
         this.content = post.getContent();
@@ -33,5 +34,6 @@ public class PostCommentDto {
         this.createdAt = post.getCreatedAt();
         this.category = category;
         this.comment = comment;
+        this.writer = equals;
     }
 }

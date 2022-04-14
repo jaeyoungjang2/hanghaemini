@@ -90,7 +90,7 @@ public class PostService {
             commentDto.add(commentResponseDto);
         }
 
-        return new PostCommentDto(post, teamDto, categoryDto, commentDto);
+        return new PostCommentDto(post, teamDto, categoryDto, commentDto, loginedUser.getId().equals(post.getUser().getId()));
     }
 
     // 게시글 전체 조회
