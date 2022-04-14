@@ -68,7 +68,7 @@ public class PostService {
     }
 
     // 게시글 상세 조회
-    public PostCommentDto getDetail(Long postId) {
+    public PostCommentDto getDetail(Long postId, User loginedUser) {
         Post post = postRepository.findById(postId).orElseThrow(
                 () -> new IllegalArgumentException("id가 존재하지 않습니다."));
 
@@ -83,8 +83,10 @@ public class PostService {
         List<CommentResponseDto> commentDto = new ArrayList<>();
 
         for (Comment comment : comments) {
+            Long loginedUserId = loginedUser.getId();
+            Long commentWriteUserId = comment.getUser().getId();
 
-            CommentResponseDto commentResponseDto = new CommentResponseDto(comment);
+            CommentResponseDto commentResponseDto = new CommentResponseDto(comment, loginedUserId.equals(commentWriteUserId));
             commentDto.add(commentResponseDto);
         }
 

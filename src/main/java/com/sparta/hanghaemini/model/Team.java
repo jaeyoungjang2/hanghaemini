@@ -51,5 +51,6 @@ public class Team {
         this.maxTeamOf = maxTeamOf;
     }
 
+
     public void changeCur(Long curTeamCnt) { this.curTeamCnt = curTeamCnt; }
 }

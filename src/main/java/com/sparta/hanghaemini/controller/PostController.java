@@ -46,8 +46,8 @@ public class PostController {
 
     // 게시글 상세 조회
     @GetMapping("/api/posts/{postId}")
-    public PostCommentDto getDetail(@PathVariable Long postId) {
-        return postService.getDetail(postId);
+    public PostCommentDto getDetail(@PathVariable Long postId, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        return postService.getDetail(postId, userDetails.getUser());
     }
 
     // 게시글 수정

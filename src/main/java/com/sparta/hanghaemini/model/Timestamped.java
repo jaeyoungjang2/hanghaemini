@@ -23,4 +23,6 @@ public abstract class Timestamped { // abstract -> 직접 new로 못쓰고 다�
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime createdAt;
 
+
+
 }

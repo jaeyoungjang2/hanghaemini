@@ -2,6 +2,7 @@ package com.sparta.hanghaemini.service;
 
 import com.sparta.hanghaemini.dto.TeamDto;
 import com.sparta.hanghaemini.dto.JudgeSuccessDto;
+import com.sparta.hanghaemini.model.Post;
 import com.sparta.hanghaemini.model.Team;
 import com.sparta.hanghaemini.model.User;
 import com.sparta.hanghaemini.repository.TeamRepository;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import org.springframework.transaction.annotation.Transactional;
 
 import static com.sparta.hanghaemini.exception.ExceptionMessages.*;
 
@@ -23,6 +25,7 @@ public class TeamService {
     private final PostRepository postRepository;
 
     // 그룹 참가 메서드
+    @Transactional
     public JudgeSuccessDto join(Long teamId, UserDetailsImpl userDetails) {
         String message;
         Optional<Team> tempteam = teamRepository.findById(teamId);
@@ -34,12 +37,14 @@ public class TeamService {
            return new JudgeSuccessDto(false, message);
         }
 
+        System.out.println("loginedUser.getId() = " + loginedUser.getId());
         Team foundteam = tempteam.get();
         List<User> userList = foundteam.getUsers();
 
         // 현재 로그인된 사용자의 유저정보를 알아올 수 있는 방법은 UserDetails가 있다.
         // 그룹의 유저목록과 비교해서 같은 사람이면 중복을 알려준다.
         for(User user: userList) {
+            System.out.println("user.getId() = " + user.getId());
             //중복 검사 : 비교 대상이 로그인 한 유저와 그룹안의 유저리스트의 유저와 비교해야한다.
             if(user.getId().equals(loginedUser.getId())) {
                 message = ILLEGAL_ALREADY_JOINED_team;
@@ -52,11 +57,23 @@ public class TeamService {
         Long curTeamCnt = foundteam.getCurTeamCnt();
 
         if(maxTeamCnt > curTeamCnt) {
+<<<<<<< HEAD
             ++curTeamCnt;
             foundteam.changeCur(curTeamCnt);
             // 그룹의 참가 유저 List에 로그인한 유저를 추가해준다.
             foundteam.getUsers().add(loginedUser);
             teamRepository.save(foundteam);
+=======
+//            ++curTeamCnt;
+
+
+
+//            TeamDto teamDto = new TeamDto(maxTeamCnt, curTeamCnt);
+//            Team team = new Team(teamDto);
+            // 그룹의 참가 유저 List에 로그인한 유저를 추가해준다.
+//            team.getUsers().add(loginedUser);
+//            teamRepository.save(team);
+>>>>>>> d17b27a (comment 작성자 확인 로직 추가 is_writer)
         } else {
             message = ILLEGAL_EXCEEDED_ALLOWED_MAXCOUNT;
             return new JudgeSuccessDto(false, message);

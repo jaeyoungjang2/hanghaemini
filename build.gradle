@@ -41,7 +41,8 @@ dependencies {
 	implementation 'com.auth0:java-jwt:3.13.0'
 
 	// aws
-	compileOnly 'org.springframework.cloud:spring-cloud-starter-aws:2.0.1.RELEASE'
+//	compileOnly 'org.springframework.cloud:spring-cloud-starter-aws:2.0.1.RELEASE'
+	implementation 'io.awspring.cloud:spring-cloud-starter-aws:2.3.1'
 
 
 }
