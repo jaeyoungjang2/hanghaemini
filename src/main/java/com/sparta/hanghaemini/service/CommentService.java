@@ -37,8 +37,8 @@ public class CommentService {
 
         User user = userDetails.getUser();
         // save 없이 이것만으로 저장됨
-        new Comment(commentDto.getContent(), post, user);
-//        commentRepository.save(comment);
+        Comment comment = new Comment(commentDto.getContent(), post, user);
+        commentRepository.save(comment);
 
         boolean ok = true;
         String message = "댓글 저장 완료";
